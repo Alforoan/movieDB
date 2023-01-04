@@ -7,7 +7,7 @@ const url =
 
 function App() {
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [random, setRandom] = React.useState(false);
+
   const loadMore = () => {
     setCurrentPage((previous) => previous + 1);
   };
