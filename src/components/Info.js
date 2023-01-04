@@ -1,9 +1,13 @@
 import React from "react";
 
-function Info() {
+function Info({ handleClick, isFavorite }) {
+  const [favorite, setFavorite] = React.useState([]);
+
   return (
     <main>
-      <button>Favorite</button>
+      <button onClick={handleClick}>
+        {isFavorite ? "favorite" : "not favorite"}
+      </button>
       <button>Watchlist</button>
     </main>
   );

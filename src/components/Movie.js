@@ -10,11 +10,20 @@ const Movie = ({
   release_date,
 }) => {
   const [isClicked, setIsClicked] = React.useState(false);
-  console.log(title);
+  const [isFavorite, setIsFavorite] = React.useState(false);
+  const handleClick = () => {
+    console.log("testing");
+    setIsFavorite((prev) => !prev);
+  };
+
   return (
     <article>
       <button onClick={() => setIsClicked((prev) => !prev)}>stuff</button>
-      {isClicked ? <Info /> : ""}
+      {isClicked ? (
+        <Info isFavorite={isFavorite} handleClick={handleClick} />
+      ) : (
+        ""
+      )}
       <div>
         <img
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
