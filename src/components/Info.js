@@ -1,7 +1,12 @@
 import React from "react";
 
 function Info() {
-  return <div>Info</div>;
+  return (
+    <main>
+      <button>Favorite</button>
+      <button>Watchlist</button>
+    </main>
+  );
 }
 
 export default Info;
