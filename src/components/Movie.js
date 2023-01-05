@@ -1,5 +1,5 @@
 import React from "react";
-import Info from "./Info";
+// import Info from "./Info";
 
 const Movie = ({
   id,
@@ -8,22 +8,25 @@ const Movie = ({
   vote_average,
   poster_path,
   release_date,
+  handleClick,
 }) => {
   const [isClicked, setIsClicked] = React.useState(false);
-  const [isFavorite, setIsFavorite] = React.useState(false);
-  const handleClick = () => {
-    console.log("testing");
-    setIsFavorite((prev) => !prev);
-  };
+
+  function Info({ isFavorite }) {
+    return (
+      <main>
+        <button onClick={() => handleClick(id)}>
+          {isFavorite ? "favorite" : "not favorite"}
+        </button>
+        <button>Watchlist</button>
+      </main>
+    );
+  }
 
   return (
     <article>
       <button onClick={() => setIsClicked((prev) => !prev)}>stuff</button>
-      {isClicked ? (
-        <Info isFavorite={isFavorite} handleClick={handleClick} />
-      ) : (
-        ""
-      )}
+      {isClicked ? <Info /> : ""}
       <div>
         <img
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
