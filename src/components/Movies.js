@@ -4,22 +4,12 @@ import Movie from "./Movie";
 import RatingOrder from "./RatingOrder";
 
 const Movies = ({ movies }) => {
-  const [infoClicked, setInfoClicked] = React.useState(false);
   const [isFavorited, setIsFavorited] = React.useState([]);
   const [search, setSearch] = React.useState("");
-  const [sortedByRating, setSortedByRating] = React.useState(false);
-  const [sortPressed, setSortPressed] = React.useState(false);
-  const [highLow, setHighLow] = React.useState(false);
-  const [lowHigh, setLowHigh] = React.useState(false);
+
   const [value, setValue] = React.useState("Default");
   const handleEvent = (e) => {
     setValue(e.target.value);
-  };
-  const handleHighLow = () => {
-    setHighLow(true);
-  };
-  const handleLowHigh = () => {
-    setLowHigh(true);
   };
 
   function handleChange(e) {
@@ -34,10 +24,6 @@ const Movies = ({ movies }) => {
       return movie;
     }
   });
-
-  const sortByClick = () => {
-    setSortPressed((prev) => !prev);
-  };
 
   const handleClick = (id) => {
     let specificMovie = movies.filter((movie) => movie.id === id);
@@ -75,20 +61,7 @@ const Movies = ({ movies }) => {
           </select>
         </label>
       </div>
-      <div>
-        <h4 onClick={sortByClick}>
-          {sortPressed ? (
-            <RatingOrder
-              handleHighLow={handleHighLow}
-              handleLowHigh={handleLowHigh}
-              setHighLow={setHighLow}
-              setLowHigh={setLowHigh}
-            />
-          ) : (
-            "Sort by rating"
-          )}
-        </h4>
-      </div>
+
       <div className="movie-list">
         {value === "Default"
           ? FilteredMovies.filter(
@@ -159,14 +132,5 @@ const Movies = ({ movies }) => {
     </section>
   );
 };
-// {movies.map((movie, index) => {
-//           return (
-//             <Movie
-//               setIsFavorited={setIsFavorited}
-//               handleClick={handleClick}
-//               key={index}
-//               {...movie}
-//             />
-//           );
-//         })}
+
 export default Movies;
