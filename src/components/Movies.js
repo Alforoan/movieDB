@@ -1,7 +1,5 @@
 import React from "react";
-
-import Movie from "./Movie";
-import RatingOrder from "./RatingOrder";
+import Movie from "./Movie.js";
 
 const Movies = ({ movies }) => {
   const [isFavorited, setIsFavorited] = React.useState([]);
