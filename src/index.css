@@ -19,3 +19,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  margin-bottom: -1.2rem;
+  margin-left: 2rem;
+  padding-top: 5px;
+}
+.absolute2 {
+  color: white;
+  position: absolute;
+  margin-top: -14rem;
+  margin-left: 5rem;
+}
+
+.movie-image {
+  width: 150px;
+  height: 225px;
+}
+
+.movie-list {
+  display: flex;
+}
+
+.movie {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

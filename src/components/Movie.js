@@ -1,4 +1,5 @@
 import React from "react";
+
 // import Info from "./Info";
 
 const Movie = ({
@@ -24,14 +25,17 @@ const Movie = ({
   }
 
   return (
-    <article>
+    <article className="movie">
       <button onClick={() => setIsClicked((prev) => !prev)}>stuff</button>
       {isClicked ? <Info /> : ""}
       <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          alt={title}
-        />
+        <div className="relative">
+          <img
+            className="movie-image"
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt={title}
+          />
+        </div>
         <p>{vote_average}</p>
         <h2>{title}</h2>
         <p>{release_date}</p>
