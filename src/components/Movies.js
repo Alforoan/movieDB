@@ -6,6 +6,7 @@ const Movies = ({ movies }) => {
   const [infoClicked, setInfoClicked] = React.useState(false);
   const [isFavorited, setIsFavorited] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const [sortedByRating, setSortedByRating] = React.useState(false);
 
   function handleChange(e) {
     const searchWord = e.target.value;
@@ -20,7 +21,9 @@ const Movies = ({ movies }) => {
     }
   });
 
-  const sortByClick = () => {};
+  const sortByClick = () => {
+    setSortedByRating((prev) => !prev);
+  };
 
   const handleClick = (id) => {
     let specificMovie = movies.filter((movie) => movie.id === id);
@@ -51,16 +54,31 @@ const Movies = ({ movies }) => {
         <button onClick={sortByClick}>Sort by rating</button>
       </div>
       <div className="movie-list">
-        {FilteredMovies.map((movie, index) => {
-          return (
-            <Movie
-              key={index}
-              setIsFavorited={setIsFavorited}
-              handleClick={handleClick}
-              {...movie}
-            />
-          );
-        })}
+        {!sortedByRating
+          ? FilteredMovies.filter(
+              (movie, index) => FilteredMovies.indexOf(movie) === index
+            ).map((movie, index) => {
+              return (
+                <Movie
+                  key={index}
+                  setIsFavorited={setIsFavorited}
+                  handleClick={handleClick}
+                  {...movie}
+                />
+              );
+            })
+          : FilteredMovies.sort((a, b) => a.vote_average - b.vote_average).map(
+              (movie, index) => {
+                return (
+                  <Movie
+                    key={index}
+                    setIsFavorited={setIsFavorited}
+                    handleClick={handleClick}
+                    {...movie}
+                  />
+                );
+              }
+            )}
       </div>
     </section>
   );

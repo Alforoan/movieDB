@@ -37,7 +37,7 @@ const Movie = ({
           />
         </div>
         <p>{vote_average}</p>
-        <h2>{title}</h2>
+        <h2 className="title">{title}</h2>
         <p>{release_date}</p>
       </div>
     </article>

@@ -44,9 +44,14 @@ code {
 
 .movie-list {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .movie {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.title {
+  max-width: 150px;
 }
