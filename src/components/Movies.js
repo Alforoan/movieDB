@@ -1,12 +1,26 @@
 import React from "react";
 
 import Movie from "./Movie";
+import RatingOrder from "./RatingOrder";
 
 const Movies = ({ movies }) => {
   const [infoClicked, setInfoClicked] = React.useState(false);
   const [isFavorited, setIsFavorited] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [sortedByRating, setSortedByRating] = React.useState(false);
+  const [sortPressed, setSortPressed] = React.useState(false);
+  const [highLow, setHighLow] = React.useState(false);
+  const [lowHigh, setLowHigh] = React.useState(false);
+  const [value, setValue] = React.useState("Default");
+  const handleEvent = (e) => {
+    setValue(e.target.value);
+  };
+  const handleHighLow = () => {
+    setHighLow(true);
+  };
+  const handleLowHigh = () => {
+    setLowHigh(true);
+  };
 
   function handleChange(e) {
     const searchWord = e.target.value;
@@ -22,7 +36,7 @@ const Movies = ({ movies }) => {
   });
 
   const sortByClick = () => {
-    setSortedByRating((prev) => !prev);
+    setSortPressed((prev) => !prev);
   };
 
   const handleClick = (id) => {
@@ -51,10 +65,32 @@ const Movies = ({ movies }) => {
         </form>
       </div>
       <div>
-        <button onClick={sortByClick}>Sort by rating</button>
+        <label>
+          Sort by:
+          <select onChange={handleEvent}>
+            <option value="Default">Default</option>
+            <option value="AlphabeticalOrder">Alphabetical Order</option>
+            <option value="HightoLow">Rating(high to low)</option>
+            <option value="LowtoHigh">Rating(low to high)</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <h4 onClick={sortByClick}>
+          {sortPressed ? (
+            <RatingOrder
+              handleHighLow={handleHighLow}
+              handleLowHigh={handleLowHigh}
+              setHighLow={setHighLow}
+              setLowHigh={setLowHigh}
+            />
+          ) : (
+            "Sort by rating"
+          )}
+        </h4>
       </div>
       <div className="movie-list">
-        {!sortedByRating
+        {value === "Default"
           ? FilteredMovies.filter(
               (movie, index) => FilteredMovies.indexOf(movie) === index
             ).map((movie, index) => {
@@ -67,7 +103,8 @@ const Movies = ({ movies }) => {
                 />
               );
             })
-          : FilteredMovies.sort((a, b) => a.vote_average - b.vote_average).map(
+          : value === "HightoLow"
+          ? FilteredMovies.sort((a, b) => b.vote_average - a.vote_average).map(
               (movie, index) => {
                 return (
                   <Movie
@@ -78,7 +115,46 @@ const Movies = ({ movies }) => {
                   />
                 );
               }
-            )}
+            )
+          : value === "LowtoHigh"
+          ? FilteredMovies.sort((a, b) => a.vote_average - b.vote_average).map(
+              (movie, index) => {
+                return (
+                  <Movie
+                    key={index}
+                    setIsFavorited={setIsFavorited}
+                    handleClick={handleClick}
+                    {...movie}
+                  />
+                );
+              }
+            )
+          : value === "AlphabeticalOrder"
+          ? FilteredMovies.sort((a, b) => a.title.localeCompare(b.title)).map(
+              (movie, index) => {
+                return (
+                  <Movie
+                    key={index}
+                    setIsFavorited={setIsFavorited}
+                    handleClick={handleClick}
+                    {...movie}
+                  />
+                );
+              }
+            )
+          : FilteredMovies.filter(
+              (movie, index) => FilteredMovies.indexOf(movie) === index
+            ).map((movie, index) => {
+              return (
+                <Movie
+                  key={index}
+                  setIsFavorited={setIsFavorited}
+                  handleClick={handleClick}
+                  {...movie}
+                />
+              );
+            })}
+        )
       </div>
     </section>
   );
